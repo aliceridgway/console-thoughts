@@ -1,0 +1,23 @@
+.category--feeling {
+    color: snow;
+}
+
+.category--idea {
+    color: peachpuff;
+}
+
+.category--issue {
+    color: palegreen;
+}
+
+.category--reminder {
+    color: palegoldenrod;
+}
+
+.category--todo {
+    color: palegoldenrod;
+}
+
+.category--urgent {
+    color: pink;
+}
