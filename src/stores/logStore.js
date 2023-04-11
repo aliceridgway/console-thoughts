@@ -11,6 +11,8 @@ export const useLogStore = defineStore('log', {
     }),
     getters: {
         getAllLogs() {
+            console.log("Hello from getAllLogs getter")
+            console.log(this.logs)
             return logHelper.formatLogs(this.logs)
         }
     },
@@ -20,25 +22,37 @@ export const useLogStore = defineStore('log', {
             const authStore = useAuthStore()
             let data = await api.fetchLogs()
 
-            console.log(data)
-
             if (data.message === authStore.tokenExpiryMessage) {
                 await authStore.refreshToken()
                 data = await api.fetchLogs()
             }
 
-            console.log(data)
-
             if (!data.body.Items) {
-                throw new Error("There was a problem fetching logs")
+                const errorMessage = data.error ? data.error : "There was a problem fetching logs"
+                throw new Error(errorMessage)
             }
 
+            console.log(data.body.Items)
             this.logs = data.body.Items
 
         },
-        addLog(formData) {
-            const log = api.addLog(formData)
-            this.logs.push(log)
+        async addLog(formData) {
+
+            const authStore = useAuthStore()
+
+            let data = await api.addLog(formData)
+
+            if (data.message === authStore.tokenExpiryMessage) {
+                await authStore.refreshToken()
+                data = await api.addLog(formData)
+            }
+
+            if (!data.body) {
+                throw new Error("There was a problem adding the log")
+            }
+
+            this.logs.push(data.body)
+
         },
         toggleLogActivity(log) {
             const updatedLog = api.toggleActive(log)
