@@ -21,15 +21,23 @@ export async function fetchLogs() {
 }
 
 
-export function addLog(formData) {
-    console.log("Pretending to send data to the api...")
+export async function addLog(formData) {
+    console.log("Adding Log...")
 
-    return {
-        ...formData,
-        id: Math.floor(Math.random() * 1000000),
-        active: true,
-        timestamp: dayjs().toISOString(),
-    }
+    const response = await fetch(LOGS_URL, {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("id_token")
+        },
+        "body": JSON.stringify(formData)
+    })
+
+    const data = await response.json()
+
+    console.log(data)
+
+    return data
 }
 
 export function toggleActive(log) {

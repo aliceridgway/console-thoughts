@@ -1,19 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, Suspense } from 'vue'
 import LogDetail from './LogDetail.vue'
 import { useLogStore } from '../stores/logStore'
 
 const store = useLogStore()
-
-store.$subscribe((mutation) => {
-  console.log(mutation.events.type)
-  if (mutation.events.type === 'add') {
-    console.log('scrolling to bottom')
-    scrollToBottom('smooth')
-  }
-})
-
-store.fetchLogs()
 
 const bottom = ref(null)
 
@@ -22,7 +12,20 @@ function scrollToBottom(behaviour = 'auto') {
 }
 
 // scroll to the bottom when the component is mounted
-onMounted(scrollToBottom)
+onMounted(async () => {
+  console.log("I've been mounted!")
+  await store.fetchLogs()
+
+  store.$subscribe((mutation) => {
+    console.log(mutation.events.type)
+    if (mutation.events.type === 'add') {
+      console.log('scrolling to bottom')
+      scrollToBottom('smooth')
+    }
+  })
+
+  scrollToBottom()
+})
 </script>
 
 <template>

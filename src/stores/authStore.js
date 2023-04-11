@@ -41,6 +41,12 @@ export const useAuthStore = defineStore('auth', {
                 localStorage.setItem('refresh_token', data.refresh_token)
                 localStorage.setItem('id_token', data.id_token)
                 this.isAuthenticated = true
+            } else {
+                if (data.error) {
+                    throw new Error(data.error)
+                } else {
+                    throw new Error("There was a problem fetching the token")
+                }
             }
 
             return data
@@ -65,8 +71,7 @@ export const useAuthStore = defineStore('auth', {
 
             const data = await response.json()
             console.log(data)
-            if (data.refresh_token && data.access_token && data.id_token) {
-                localStorage.setItem('refresh_token', data.refresh_token)
+            if (data.access_token && data.id_token) {
                 localStorage.setItem('access_token', data.access_token)
                 localStorage.setItem('id_token', data.id_token)
                 this.isAuthenticated = true
