@@ -48,10 +48,11 @@ const activator = computed(() => {
       <span>{{ category.suffix }}</span>
     </td>
     <td>
-      <!-- <v-icon icon="mdi-dots-vertical" :id="activator" /><LogDetailMenu
+      <v-icon icon="mdi-dots-vertical" :id="activator" />
+      <LogDetailMenu
         :log="log"
         :activatorId="activator"
-      /> -->
+      />
     </td>
   </tr>
 </template>

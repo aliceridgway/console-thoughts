@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 
-const BASE_URL = "https://alicer-journal.auth.us-east-1.amazoncognito.com"
-const CLIENT_ID = "4sh0j6csboim75kj6oadmmjcim"
-
+import auth from '../constants/auth'
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({
@@ -12,13 +10,13 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async fetchToken(authorizationCode) {
-            const url = `${BASE_URL}/oauth2/token`
+            const url = auth.tokenURL
 
             const body = {
                 grant_type: "authorization_code",
-                client_id: CLIENT_ID,
+                client_id: auth.CLIENT_ID,
                 code: authorizationCode,
-                redirect_uri: 'http://localhost:5173/callback',
+                redirect_uri: auth.REDIRECT_URI,
             }
 
             const requestBody = new URLSearchParams()
@@ -53,11 +51,11 @@ export const useAuthStore = defineStore('auth', {
 
         },
         async refreshToken() {
-            const url = `${BASE_URL}/oauth2/token`
+            const url = auth.tokenURL
 
             const body = {
                 grant_type: "refresh_token",
-                client_id: CLIENT_ID,
+                client_id: auth.CLIENT_ID,
                 refresh_token: localStorage.getItem('refresh_token'),
             }
 
@@ -86,11 +84,11 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async revokeToken() {
-            const url = `${BASE_URL}/oauth2/revoke`
+            const url = auth.revokeTokenURL
 
             const body = {
                 token: localStorage.getItem('refresh_token'),
-                client_id: CLIENT_ID,
+                client_id: auth.CLIENT_ID,
             }
 
             const response = await fetch(url, {
