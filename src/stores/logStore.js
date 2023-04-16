@@ -54,13 +54,37 @@ export const useLogStore = defineStore('log', {
             this.logs.push(data.body)
 
         },
-        toggleLogActivity(log) {
-            const updatedLog = api.toggleActive(log)
-            const index = this.logs.findIndex((l) => l.id === log.id)
-            this.logs.splice(index, 1, updatedLog)
+        async toggleLogActivity(log) {
+            const authStore = useAuthStore()
+        
+            log.active = !log.active
+
+            let data = await api.updateLog(log)
+
+            if (data.message === authStore.tokenExpiryMessage) {
+                await authStore.refreshToken()
+                data = await api.updateLog(log)
+            }
+
+            if (!data.body) {
+                throw new Error("There was a problem updating the log")
+            }
         },
-        deleteLog(log) {
-            api.deleteLog(log)
+        async deleteLog(log) {
+            const authStore = useAuthStore()
+
+            let data = await api.deleteLog(log)
+
+            if (data.message === authStore.tokenExpiryMessage) {
+                await authStore.refreshToken()
+                data = await api.deleteLog(log)
+            }
+
+            if (data.error || data.statusCode != 200) {
+                console.log(data)
+                throw new Error("There was a problem deleting the log")
+            }
+            
             const index = this.logs.findIndex((l) => l.id === log.id)
             this.logs.splice(index, 1)
         },

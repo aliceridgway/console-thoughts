@@ -1,7 +1,3 @@
-import dayjs from 'dayjs'
-
-import getFakeLogs from './fakeLogs.js';
-
 const LOGS_URL = "https://utq5sff0a7.execute-api.us-east-1.amazonaws.com/Prod/logs"
 
 export async function fetchLogs() {
@@ -40,23 +36,44 @@ export async function addLog(formData) {
     return data
 }
 
-export function toggleActive(log) {
-    console.log("Pretending to update a log in the DB...")
+export async function updateLog(log) {
+    console.log("Updating Log...")
 
-    log.active = !log.active
+    const response = await fetch(LOGS_URL, {
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("id_token")
+        },
+        "body": JSON.stringify(log)
+    })
 
-    return log
+    const data = await response.json()
+    console.log(data)
+
+    return data
 }
 
-export function deleteLog(log) {
-    console.log("Pretending to delete a log from the DB...")
+export async function deleteLog(log) {
+    console.log("Deleting log...")
 
-    return log.id
+    const response = await fetch(LOGS_URL, {
+        "method": "DELETE",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem("id_token")
+        },
+        "body": JSON.stringify(log)
+    })
+
+    const data = await response.json()
+
+    return data
 }
 
 export default {
     fetchLogs,
     addLog,
-    toggleActive,
+    updateLog,
     deleteLog,
 }
