@@ -13,8 +13,6 @@ const props = defineProps({
   }
 })
 
-console.log(props.log)
-
 const category = computed(() => {
   try {
     return CATEGORIES.filter((x) => x.name === props.log.category)[0]
