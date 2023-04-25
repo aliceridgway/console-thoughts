@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, Suspense } from 'vue'
+import { ref, onMounted} from 'vue'
 import LogDetail from './LogDetail.vue'
 import { useLogStore } from '../stores/logStore'
 
@@ -42,7 +42,8 @@ onMounted(async () => {
 .log-list {
   list-style: none;
   margin: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  color: lightgray;
   background: none;
 }
 

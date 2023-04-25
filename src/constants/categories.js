@@ -1,6 +1,6 @@
 export const DEFAULT_CATEGORY = {
     name: "note",
-    emoji: "",
+    prefix: "# ",
 }
 
 export const CATEGORIES = [
@@ -23,7 +23,7 @@ export const CATEGORIES = [
     {
         name: "idea",
         prefix: "💡 Idea: ",
-        suffix: " 💡",
+        suffix: "",
     },
     {
         name: "issue",
@@ -32,7 +32,7 @@ export const CATEGORIES = [
     },
     {
         name: "question",
-        prefix: "❓ Ask: ",
+        prefix: "❓ Question: ",
         suffix: ""
     },
     {

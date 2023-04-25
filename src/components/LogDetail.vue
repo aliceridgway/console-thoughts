@@ -22,7 +22,8 @@ const category = computed(() => {
   }
 })
 
-const cssClass = `category--${props.log.category}`
+const categoryClass = `category--${props.log.category}`
+const textClass = `text--${props.log.category}`
 
 const activator = computed(() => {
   return `log-menu-activator-${props.log.id}`
@@ -33,18 +34,23 @@ const activator = computed(() => {
   <tr v-if="log.isFirstOfDay">
     <td colspan="3"></td>
   </tr>
-  <tr v-if="log.isFirstOfDay" class="log__date">
-    <td colspan="3">{{ log.formattedDate }}</td>
+  <tr v-if="log.isFirstOfDay" class="log__header">
+    <td colspan="3"><p class="log__date">
+      {{ log.formattedDate }}
+    </p></td>
   </tr>
   <tr>
-    <td class="log__timestamp">[{{ dayjs(props.log.timestamp).format('HH:mm:ss') }}]</td>
     <td class="log__text" :class="props.log.active ? undefined : 'log__text--inactive'">
-      <span :class="cssClass"
-        ><b>{{ category.prefix }}</b></span
-      >
-      <span>{{ props.log.text }}</span>
-      <span>{{ category.suffix }}</span>
+      <p class="log__text__content">
+        <span :class="categoryClass"
+        ><b>{{ category.prefix }}</b></span>
+        <span :class="textClass">{{ props.log.text }}</span>
+        <span>{{ category.suffix }}</span>
+      </p>
     </td>
+
+    <td class="log__timestamp"><v-chip>{{ dayjs(props.log.timestamp).format('HH:mm') }}</v-chip></td>
+
     <td>
       <v-icon icon="mdi-dots-vertical" :id="activator" />
       <LogDetailMenu
@@ -56,11 +62,26 @@ const activator = computed(() => {
 </template>
 
 <style scoped>
+
+.log__text__content {
+  max-width: 550px;
+  margin: 1rem 0;
+}
 .log__text--inactive {
   text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.log__timestamp {
+  font-size: 1rem;
+}
+.log__header {
+  background: rgba(0, 0, 0, 0.2);
+  font-weight: bold;
 }
 
 .log__date {
-  background: rgba(41, 41, 41, 0.2);
+  margin: 1rem 0;
 }
+
 </style>

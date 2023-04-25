@@ -37,7 +37,7 @@ function submitForm(event) {
         <v-text-field
             class="new-log__text"
             v-model="log"
-            bg-color="rgba(0,0,0,0.5)"
+            bg-color="rgb(26, 26, 26)"
             variant="solo"
             type="text"
         >
@@ -58,7 +58,7 @@ function submitForm(event) {
 .new-log{
     display: flex;
     width: 500px;
-    margin: 2rem auto;
+    margin: 2rem auto 1rem auto;
 }
 
 .new-log__category {

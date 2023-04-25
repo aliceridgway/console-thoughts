@@ -1,3 +1,5 @@
+/* CATEGORIES */
+
 .category--feeling {
     color: snow;
 }
@@ -20,4 +22,47 @@
 
 .category--urgent {
     color: pink;
+}
+
+.category--note {
+    font-style: italic;
+    color: rgb(99, 175, 99);
+}
+
+/* TEXT */
+
+.text--feeling {
+    color: lightgray;
+}
+
+.text--idea {
+    color: lightgray;
+
+}
+
+.category--issue {
+    color: lightgray;
+
+}
+
+.text--reminder {
+    color: lightgray;
+
+}
+
+.text--todo {
+    color: lightgray;
+    font-weight: bold;
+
+}
+
+.text--urgent {
+    color: white;
+    text-emphasis: bold;
+
+}
+
+.text--note {
+    color: rgb(99, 175, 99);
+    font-style: italic;
 }
