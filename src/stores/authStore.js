@@ -14,9 +14,9 @@ export const useAuthStore = defineStore('auth', {
 
             const body = {
                 grant_type: "authorization_code",
-                client_id: auth.CLIENT_ID,
+                client_id: import.meta.env.VITE_CLIENT_ID,
                 code: authorizationCode,
-                redirect_uri: auth.REDIRECT_URI,
+                redirect_uri: import.meta.env.VITE_REDIRECT_URI,
             }
 
             const requestBody = new URLSearchParams()
@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('auth', {
 
             const body = {
                 grant_type: "refresh_token",
-                client_id: auth.CLIENT_ID,
+                client_id: import.meta.env.VITE_CLIENT_ID,
                 refresh_token: localStorage.getItem('refresh_token'),
             }
 
@@ -88,7 +88,7 @@ export const useAuthStore = defineStore('auth', {
 
             const body = {
                 token: localStorage.getItem('refresh_token'),
-                client_id: auth.CLIENT_ID,
+                client_id: import.meta.env.VITE_CLIENT_ID,
             }
 
             const response = await fetch(url, {
