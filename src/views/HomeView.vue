@@ -8,7 +8,6 @@ import AuthenticatedOnly from '../components/AuthenticatedOnly.vue';
 
 <template>
   <AuthenticatedOnly>
-    <NewLogForm />
     <ConsoleWindow>
       <Suspense>
         <template #default>
@@ -19,5 +18,6 @@ import AuthenticatedOnly from '../components/AuthenticatedOnly.vue';
         </template>
       </Suspense>
     </ConsoleWindow>
+    <NewLogForm />
   </AuthenticatedOnly>
 </template>

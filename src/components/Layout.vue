@@ -8,7 +8,7 @@
 .app {
   position: relative;
   max-height: 100vh;
-  background-color: rgb(16, 16, 16);
+  background-color: rgb(26, 26, 26);
   font-family: "Cousine For Powerline", "Courier New", Courier, monospace;
   width: 100vw;
   padding: 0;

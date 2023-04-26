@@ -38,8 +38,9 @@ function submitForm(event) {
             class="new-log__text"
             v-model="log"
             bg-color="rgb(26, 26, 26)"
-            variant="solo"
+            variant="outlined"
             type="text"
+            density="comfortable"
         >
             <template v-slot:append-inner>
                 <v-chip variant="elevated" :color="isCategorized(category) ? 'pink' : 'grey-darken-4'" class="new-log__category">{{ category }}</v-chip>
@@ -58,7 +59,11 @@ function submitForm(event) {
 .new-log{
     display: flex;
     width: 500px;
-    margin: 2rem auto 1rem auto;
+    margin: 0 auto 2rem auto;
+}
+
+.v-text-field input{
+    font-size: 1.2rem;
 }
 
 .new-log__category {
